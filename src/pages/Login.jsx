@@ -12,7 +12,7 @@ const Login = () => {
     e.preventDefault();
     seterror("");
     try {
-      const res = await api.post("/auth/login", { email, password });
+      const res = await api.post("/auth/login", { email, password },{withCredentials: true});
 
       if (res?.data?.message === "user logedin successfully") {
         alert("🎉 Login successful!");
