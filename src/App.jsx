@@ -8,6 +8,8 @@ import { useAuth } from "./context/AuthContext";
 import ProctedRutes from "./routes/ProtectedRoute";
 import SellerDashboard from "./pages/SellerDashboard";
 import EditProduct from "./pages/EditProduct";
+import Home from "./pages/Home";
+import Navbar from "./components/Navbar";
 
 const App = () => {
   const {user, loading} = useAuth()
@@ -15,8 +17,10 @@ const App = () => {
   return (
     <div>
       <BrowserRouter>
+      <Navbar/>
       <Routes>
-        <Route path="/" element={<Login/>} />
+        <Route path="/" element={<Home/>}/>
+        <Route path="/login" element={<Login/>} />
         <Route path="register" element={<Register/>} />
         <Route path="products" element={<Products/>} />
         <Route path="/product/:id" element={<ProductDetails />} />
@@ -48,3 +52,6 @@ const App = () => {
 }
 
 export default App;
+
+
+

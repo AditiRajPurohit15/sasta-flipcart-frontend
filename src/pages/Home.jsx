@@ -1,11 +1,11 @@
 import React from 'react';
 
-const ProductCard = () => {
+const Home = () => {
   return (
     <div>
-      
+      Home
     </div>
   );
 }
 
-export default ProductCard;
+export default Home;

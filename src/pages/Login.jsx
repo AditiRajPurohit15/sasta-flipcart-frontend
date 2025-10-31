@@ -1,27 +1,42 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../utils/axiosInstance";
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [error, seterror] = useState("");
+  const { login } = useAuth();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    seterror("");
-    try {
-      const res = await api.post("/auth/login", { email, password },{withCredentials: true});
+const handleLogin = async (e) => {
+  e.preventDefault();
+  seterror("");
 
-      if (res?.data?.message === "user logedin successfully") {
-        alert("🎉 Login successful!");
-        navigate("/products");
-      }
-    } catch (err) {
-      seterror(err.response?.data?.message || "Something went wrong");
+  try {
+    const res = await api.post(
+      "/auth/login",
+      { email, password },
+      { withCredentials: true }
+    );
+
+    // ✅ If backend returns user info, update AuthContext immediately
+    if (res?.data?.user) {
+      login(res.data.user); // updates Navbar immediately
+      localStorage.setItem("user", JSON.stringify(res.data.user)); // ensure persistence
     }
-  };
+
+    // ✅ Navigate *after* context update
+    if (res?.data?.message === "user logedin successfully") {
+      alert("🎉 Login successful!");
+      navigate("/products", { replace: true });
+    }
+  } catch (err) {
+    seterror(err.response?.data?.message || "Something went wrong");
+  }
+};
+
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">

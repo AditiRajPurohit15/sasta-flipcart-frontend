@@ -27,6 +27,19 @@ const Products = () => {
     fetchProducts();
   }, []);
 
+  const handleAddToCart = async (productId) => {
+  try {
+    const res = await api.post(
+      "/cart/add",
+      { productId },
+      { withCredentials: true }
+    );
+    alert("✅ Added to cart!");
+  } catch (err) {
+    alert("⚠️ Failed to add to cart. Please log in.");
+  }
+};
+
   if (loading) return <p className="text-center mt-10 text-gray-500 text-lg">Loading...</p>;
   if (error) return <p className="text-center mt-10 text-red-500 text-lg">{error}</p>;
   if (products.length === 0) return <p className="text-center mt-10 text-gray-400 text-lg">No products found!</p>;
@@ -56,6 +69,12 @@ const Products = () => {
           onClick={()=>navigate(`/product/${item._id}`)}
           >
             view Details
+          </button>
+          <button
+          className="flex-1 bg-green-500 hover:bg-green-600 text-white font-medium py-2 rounded-lg transition"
+          onClick={() => handleAddToCart(item._id)}
+            >
+               Add to Cart
           </button>
           </div>
           </div>
