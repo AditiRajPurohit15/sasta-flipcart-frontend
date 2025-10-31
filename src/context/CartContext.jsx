@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import api from '../utils/axiosInstance'
 
 const CartContext = createContext();
@@ -11,7 +11,7 @@ const [cartCount, setCartCount] = useState(0);
   const fetchCart = async () => {
     try {
       const res = await api.get("/cart", { withCredentials: true });
-      setCart(res.data.items || []);
+      setcart(res.data.items || []);
     } catch (error) {
       console.log("Cart fetch failed (maybe not logged in)");
     }

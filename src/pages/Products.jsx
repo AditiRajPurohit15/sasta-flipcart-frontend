@@ -71,7 +71,7 @@ const Products = () => {
             view Details
           </button>
           <button
-          className="flex-1 bg-green-500 hover:bg-green-600 text-white font-medium py-2 rounded-lg transition"
+          className="flex-1 bg-green-500 hover:bg-green-600 text-white font-medium py-2 mt-2 px-1 rounded-lg transition"
           onClick={() => handleAddToCart(item._id)}
             >
                Add to Cart
