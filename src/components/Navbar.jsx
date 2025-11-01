@@ -1,16 +1,12 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { ShoppingCart, Search } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import { useState } from "react";
 
-
 const Navbar = () => {
-
   const [searchQuery, setSearchQuery] = useState("");
-
   const { cartCount } = useCart();
-
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -21,7 +17,7 @@ const Navbar = () => {
     navigate("/login");
   };
 
-  // pages where we show only logo
+  // Hide navbar on login/register
   const isAuthPage =
     location.pathname === "/login" || location.pathname === "/register";
 
@@ -43,7 +39,7 @@ const Navbar = () => {
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-3">
-        {/* Logo (Home - All Products) */}
+        {/* Logo */}
         <Link
           to="/products"
           className="text-2xl font-bold text-indigo-600 hover:text-indigo-700 transition"
@@ -51,30 +47,24 @@ const Navbar = () => {
           MyStore 🛍️
         </Link>
 
-        {/* Search bar */}
-        {/* <div className="hidden md:flex items-center mx-6 max-w-md bg-gray-100 rounded-lg px-3 py-1">
-          <Search className="text-gray-500 w-5 h-5 mr-2" />
-          <input
-            type="text"
-            placeholder="Search products..."
-            value={searchQuery}
-            onChange={(e) => {
-              setSearchQuery(e.target.value);
-              if (location.pathname !== "/products") navigate("/products");
-            }}
-            className="bg-transparent focus:outline-none text-sm text-gray-700"
-          />
-        </div> */}
-
         {/* Nav Links */}
         <div className="hidden md:flex items-center space-x-6 font-medium text-gray-700">
           {user?.role === "seller" && (
-            <Link
-              to="/seller-dashboard"
-              className="hover:text-indigo-600 transition"
-            >
-              My Products
-            </Link>
+            <>
+              <Link
+                to="/seller-dashboard"
+                className="hover:text-indigo-600 transition"
+              >
+                My Products
+              </Link>
+
+              <Link
+                to="/add-product"
+                className="hover:text-green-600 transition"
+              >
+                + Add Product
+              </Link>
+            </>
           )}
         </div>
 
