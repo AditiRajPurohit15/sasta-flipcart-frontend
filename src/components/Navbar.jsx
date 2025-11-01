@@ -52,7 +52,7 @@ const Navbar = () => {
         </Link>
 
         {/* Search bar */}
-        <div className="hidden md:flex items-center mx-6 max-w-md bg-gray-100 rounded-lg px-3 py-1">
+        {/* <div className="hidden md:flex items-center mx-6 max-w-md bg-gray-100 rounded-lg px-3 py-1">
           <Search className="text-gray-500 w-5 h-5 mr-2" />
           <input
             type="text"
@@ -64,7 +64,7 @@ const Navbar = () => {
             }}
             className="bg-transparent focus:outline-none text-sm text-gray-700"
           />
-        </div>
+        </div> */}
 
         {/* Nav Links */}
         <div className="hidden md:flex items-center space-x-6 font-medium text-gray-700">
