@@ -2,8 +2,12 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { ShoppingCart, Search } from "lucide-react";
 import { useCart } from "../context/CartContext";
+import { useState } from "react";
+
 
 const Navbar = () => {
+
+  const [searchQuery, setSearchQuery] = useState("");
 
   const { cartCount } = useCart();
 
@@ -48,12 +52,17 @@ const Navbar = () => {
         </Link>
 
         {/* Search bar */}
-        <div className="hidden md:flex items-center flex-grow mx-6 max-w-md bg-gray-100 rounded-lg px-3 py-1">
+        <div className="hidden md:flex items-center mx-6 max-w-md bg-gray-100 rounded-lg px-3 py-1">
           <Search className="text-gray-500 w-5 h-5 mr-2" />
           <input
             type="text"
             placeholder="Search products..."
-            className="bg-transparent focus:outline-none text-sm flex-grow text-gray-700"
+            value={searchQuery}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              if (location.pathname !== "/products") navigate("/products");
+            }}
+            className="bg-transparent focus:outline-none text-sm text-gray-700"
           />
         </div>
 

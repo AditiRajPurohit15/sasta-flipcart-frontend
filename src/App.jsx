@@ -10,6 +10,7 @@ import SellerDashboard from "./pages/SellerDashboard";
 import EditProduct from "./pages/EditProduct";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
+import Cart from "./pages/Cart";
 
 const App = () => {
   const {user, loading} = useAuth()
@@ -42,6 +43,7 @@ const App = () => {
   }
 />
         <Route path="/edit/:id" element={<EditProduct />} />
+        <Route path ="/cart" element={<Cart/>}/>
 
 
       </Routes>

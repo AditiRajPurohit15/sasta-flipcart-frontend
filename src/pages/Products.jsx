@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../utils/axiosInstance";
 import { useNavigate } from "react-router-dom";
+import { useSearch } from "../context/SearchContext";
 
 const FALLBACK_IMG = "https://via.placeholder.com/300x200?text=No+Image";
 
@@ -11,6 +12,10 @@ const Products = () => {
   const [products, setproducts] = useState([]);
   const [loading, setloading] = useState(true);
   const [error, seterror] = useState("");
+
+  const { searchQuery } = useSearch();
+  const [filteredProducts, setFilteredProducts] = useState([]);
+
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -26,6 +31,14 @@ const Products = () => {
     };
     fetchProducts();
   }, []);
+
+  useEffect(() => {
+  const filtered = products.filter((item) =>
+    item.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+  setFilteredProducts(filtered);
+}, [searchQuery, products]);
+
 
   const handleAddToCart = async (productId) => {
   try {
@@ -48,7 +61,7 @@ const Products = () => {
     <div className="min-h-screen bg-gray-50 p-6">
       <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">All Products</h1>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {products.map((item) => (
+        {filteredProducts.map((item) => (
           <div
           key={item._id}
           className="bg-white shadow-md rounded-xl overflow-hidden hover:shadow-lg transition-shadow duration-300"
